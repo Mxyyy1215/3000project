@@ -20,10 +20,18 @@ include("left.php");
       <tr>
         <td  bgcolor="#666666"><table width="670" cellspacing="1" border="0px">
             <tr>
+         
               <td width="68"  bgcolor="#FFFFFF"><div>Product information name</div></td>
+      
+       
+ 
               <td width="46"  bgcolor="#FFFFFF"><div>Product information author</div></td>
-           <td width="49"  bgcolor="#FFFFFF"><div>Status</div></td>
-           <td width="49"  bgcolor="#FFFFFF"><div>Current highest bid</div></td>
+          
+       
+        
+             
+              <td width="49"  bgcolor="#FFFFFF"><div>Status</div></td>
+ 
               <td width="93"  bgcolor="#FFFFFF"><div>Operating</div></td>
             </tr>
 <?php
@@ -51,41 +59,9 @@ if(!isset($_SESSION['busyessname'])){
         
           
               
-              <td bgcolor="#FFFFFF"style="text-align:center;">
-			  
-              <?php
-			  	if($row['zt']==0){ echo "Goods off shelves";}//商品下架
-			  														if($row['zt']==1){ echo "Commodities were bought at a price";}//Commodities were bought at a price
-																	if($row['zt']==2){ echo "Bidding in progress";} //Bidding in progress
-			  														if($row['zt']==3){ echo "The product is bought by the highest bidder";}//The product is bought by the highest bidder
-			  														if($row['zt']==4){ echo "Bidding in progress";}//The product is bought by the highest bidder
-			  ?>
-               </td>
-              <td bgcolor="#FFFFFF"style="text-align:center;">
-			  
-              <?php
-			  	 if($row['zt']==2||$row['zt']==3){ 
-				  
-				 $rs3=mysqli_query($link,"select * from tb_sale where goodid='$row[eaid]' and type='2' or type='3' order by id desc ");
-				  $row3=mysqli_fetch_array($rs3);
-				    if(empty($row3['goodprice'])){ echo "No bids yet";}else{ echo $row3['goodprice']."$";}
- 				 }elseif($row['zt']==1){
-				 
-					 $rs3=mysqli_query($link,"select * from tb_sale where goodid='$row[eaid]'  and type='1'  order by id desc ");
- 					 $row3=mysqli_fetch_array($rs3);
-				    if(empty($row3['goodprice'])){ echo "No bids yet";}else{ echo $row3['goodprice']."$";}
-					 } else{
-						 echo "No bids yet";
-						 }
-					
-			  ?>
-              
-              
-              </td>
+              <td bgcolor="#FFFFFF"style="text-align:center;"><?php if($row['zt']==1){ echo "On the shelf";}else{ echo "Off the shelf";}?></td>
               <td bgcolor="#FFFFFF" style="text-align:center;">
-                <a href="javascript:if(confirm('Do you really want to close??'))location='enter.php?id=<?php echo $row['eaid'];?>'" >Confirm auction transaction</a>&nbsp;
-             <a href="changegood.php?id=<?php echo $row['eaid'];?>">Modify</a>&nbsp;
-             <a href="delgood.php?id=<?php echo $row['eaid'];?>">Delete</a></td>
+             <a href="changegood.php?id=<?php echo $row['eaid'];?>">Modify</a>&nbsp;<a href="delgood.php?id=<?php echo $row['eaid'];?>">Delete</a></td>
             </tr>
             <?php
             }

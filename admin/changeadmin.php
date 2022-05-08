@@ -1,5 +1,5 @@
 <?php
-//Modifying Administrator Information
+//修改管理员信息
 include("../conn.php");
 if(!isset($_POST['ok'])){
 	echo '<script type="text/javascript">alert("Illegal operation");</script>';
