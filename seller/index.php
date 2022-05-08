@@ -9,7 +9,8 @@ if(isset($_POST['ok'])){
 	$row=mysqli_fetch_array($rs);
 	if(mysqli_num_rows($rs)>0){
 		$_SESSION['busyessname']=$name;
- 		header("location:addgood.php");
+	 
+		header("location:addgood.php");
 		}else{
 			echo '<script type="text/javascript">alert("Username or password is incorrect!");history.back();</script>';
 			}
@@ -47,7 +48,7 @@ function ck(f){
   <div class="butbox">
 
     <form method="post"  action="index.php" onsubmit="return ck(this)">
-      <h3 class="saletips">Seller Login<a href="res.php">Registered</a></h3>
+      <h3 class="saletips">Merchant login<a href="res.php">Registered</a></h3>
       <br />
       <br />
       <dl>

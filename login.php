@@ -1,18 +1,17 @@
 <?php
   include("conn.php");
  
-	if(isset($_POST['submit'])){ //Decide whether to submit
+	if(isset($_POST['submit'])){ //判断是否提交
 		  $username=$_POST['yonghuming'];
 		  $password=md5($_POST['mima']);
-		  //Get data by POST
+		  //通过post获取数据
 	 
- 	    $sql="select  * from  tb_user where username='$username' and  password='$password'";//SQL select statement
+ 	   $sql="select  * from  tb_user where username='$username' and  password='$password'";//sql选择语句
  
 		$result = mysqli_query($link,$sql); 
-		 $result=mysqli_num_rows($result); //Statistics how much data is queried
-   if($result>0)//Determine whether the login was successful
+   if($result==true)//判断登陆是否成功
       {
-		  $_SESSION['yonghu']=$username; //A successful login will store the database in cache
+		  $_SESSION['yonghu']=$username; //登陆成功则将数据库存储到缓存
        echo "<script>alert('Landed successfully');window.location.href='login.php'</script>";
       }else{
        echo "<script>alert('Login failed');window.location.href='login.php'</script>";
@@ -24,7 +23,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Art auction management</title>
+<title>GU2</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 
 </head>
@@ -38,27 +37,17 @@
  
 	?>
   
-    <a href='seller/index.php'>Seller Login</a>
-   <a href='seller/res.php'>Seller Registration</a>
+    <a href='seller/index.php'>Merchants landing</a>
+   <a href='seller/res.php'>Business registration</a>
     </div>    </div>
 <div class="header">
   <div class="headmain">
    
     <dl>
       <dt><img src="images/logo.png"  /></dt>
-     <dd><div class="search">
-         <form action="search.php" method="post">
-            <input type="text" name="search" placeholder="Search">
-            <button type="submit">Search</button>
-              </form>
-        </div> </dd>
+      <dd> <a  class="cur" href="index.php">Home page</a> <a href="list.php">Commodity information</a> <a href="note.php">News</a>  <a href="login.php">User login</a> <a href="res.php">User registration</a> <a href="help.php">Help</a></dd>
     </dl>
   </div>
-</div>
-<div class="navbox">
-<div class="nav">
-<a  class="cur" href="index.php">Home page</a> <a href="list.php">Commodity information</a> <a href="note.php">News</a>  <a href="login.php">User login</a> <a href="res.php">User registration</a><a href="help.php">Help</a>
-</div>
 </div>
 <div class="main">
 <div class="layout">

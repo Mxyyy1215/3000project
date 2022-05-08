@@ -6,7 +6,7 @@ include("conn.php");
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Art auction management</title>
+<title>Auction</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 
 </head>
@@ -20,26 +20,17 @@ include("conn.php");
  
 	?>
   
-    <a href='seller/index.php'>Seller Login</a>
-   <a href='seller/res.php'>Seller Registration</a>
+    <a href='seller/index.php'>Merchants landing</a>
+   <a href='seller/res.php'>Business registration</a>
     </div>    </div>
 <div class="header">
   <div class="headmain">
    
     <dl>
       <dt><img src="images/logo.png"  /></dt>
-        <dd><div class="search">
-         <form action="search.php" method="post">
-            <input type="text" name="search" placeholder="search">
-            <button type="submit">Search</button>
-              </form>
-        </div> </dd>
+      <dd> <a  class="cur" href="index.php">homepage</a> <a href="list.php">Commodity information</a> <a href="note.php">News</a>  <a href="login.php">User login</a> <a href="res.php">User registration</a> <a href="help.php">Help</a></dd>
     </dl>
   </div>
-</div><div class="navbox">
-<div class="nav">
-<a  class="cur" href="index.php">Home page</a> <a href="list.php">Commodity information</a> <a href="note.php">News</a>  <a href="login.php">User login</a> <a href="res.php">User registration</a><a href="help.php">Help</a>
-</div>
 </div>
 <div class="main">
   <div class="titlehote">
@@ -47,21 +38,16 @@ include("conn.php");
     <p>Record of bidding</p>
   </div>
    <div id="content" class="myorder">
- <div class="ddleft">
- 	<ul>
-    	<li><a href="mydingdan.php" class="cur">My bid</a></li>
-    	<li><a href="myonepric.php">One price</a></li>
-    </ul>
- </div>
- <div class="ddright"> 
-    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+    <form action="delalldingdan.php" method="post"  onsubmit="test()">
+    <span style="text-align:right; padding-right:10px;"> </span>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
       <tr>
-        <td ><table width="100%" cellspacing="1" cellpadding="10" border="0px">
+        <td ><table width="100%" cellspacing="1" border="0px">
             <tr>
-              <th width="121" height="36" bgcolor="#FFFFFF"><div align="center">Name of commodity</div></th>
-           
-               <th width="87" bgcolor="#FFFFFF"><div align="center">Bid</div></th>
-              <th width="141" bgcolor="#FFFFFF"><div align="center">Commodity status</div></th>
+              <td width="121" height="20" bgcolor="#FFFFFF"><div align="center">Name of commodity</div></td>
+              <td width="59" bgcolor="#FFFFFF"><div align="center">Deadline</div></td>
+               <td width="87" bgcolor="#FFFFFF"><div align="center">Bid</div></td>
+              <td width="141" bgcolor="#FFFFFF"><div align="center">Commodity status</div></td>
              </tr>
             <?php
 if(!isset($_SESSION['yonghu'])){
@@ -69,32 +55,24 @@ if(!isset($_SESSION['yonghu'])){
 	echo '<script type="text/javascript">location.href="index.php";</script>';
 	exit;
 	}
- 
-	$rs=mysqli_query($link,"select * from tb_study,tb_sale where tb_study.eaid=tb_sale.goodid and tb_sale.user='$_SESSION[yonghu]'");
+	$rs=mysqli_query($link,"select * from tb_study,tb_saleuser where tb_study.eaid=tb_saleuser.goodid");
 	$total=mysqli_num_rows($rs);
 	$pagesize=6;
-	$numofpage=ceil($total/$pagesize);//Get maximum value
+	$numofpage=ceil($total/$pagesize);//获取最大值
 	if(isset($_GET['page'])){
 		$currentpage=$_GET['page'];
 		}else{
 			$currentpage=1;
 			}
 	$start=($currentpage-1)*$pagesize;
-	 
-	$rs2=mysqli_query($link,"select * from tb_study,tb_saleuser where tb_study.eaid=tb_saleuser.goodid and tb_saleuser.user='$_SESSION[yonghu]' order by tb_saleuser.id desc limit $start,$pagesize");
+	$rs2=mysqli_query($link,"select * from tb_study,tb_saleuser where tb_study.eaid=tb_saleuser.goodid limit $start,$pagesize");
 	while($row=mysqli_fetch_array($rs2)){
 ?>
             <tr>
               <td  bgcolor="#FFFFFF"style="text-align:center;"><?php echo $row['EAname'];?></td>
-        
-              <td bgcolor="#FFFFFF"style="text-align:center;"><?php echo $row['price'];?>$</td>
-              <td bgcolor="#FFFFFF"style="text-align:center;"><?php  
-			  														if($row['zt']==0){ echo "Goods off shelves";}//Goods from the shelves
-			  														if($row['zt']==1){ echo "Commodities were bought at a price";}//The goods were bought at a single price
-																	if($row['zt']==2){ echo "Bidding in progress";} //In the bidding
-			  														if($row['zt']==3){ echo "The product is bought by the highest bidder";}//The goods were bought by the highest bidder
-			  														 
-															 ?></td>
+              <td bgcolor="#FFFFFF"style="text-align:center;"><?php echo $row['overtime'];?></td>
+              <td bgcolor="#FFFFFF"style="text-align:center;"><?php echo $row['price'];?>元</td>
+              <td bgcolor="#FFFFFF"style="text-align:center;"><?php  if($row['zt']==1){ echo "On the shelf";}else{ echo 'Has been removed';};?></td>
              </tr>
             <?php
 	}
@@ -103,8 +81,8 @@ if(!isset($_SESSION['yonghu'])){
       </tr>
       
     </table>
-   </div>
- 
+    <p style=" text-align:right; margin-right:5px;"> </p>
+  </form>
   </div>
   <div class="clearfloat"></div>
   <div class="footer">

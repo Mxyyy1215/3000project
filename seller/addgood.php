@@ -88,9 +88,11 @@ if(!isset($_SESSION['busyessname'])){
               <td><input name="price" type="text" id="price" /></td>
             </tr>
               <tr  bgcolor="#FFFFFF">
-              <td><div> a buy-in price :</div></td>
-              <td><input name="oneprice" type="text" id="oneprice" value="" />
-                 </td>
+              <td><div>Is it a buy-in price:</div></td>
+              <td><input name="oneprice" type="radio" value="1" />
+                Yes
+                <input name="oneprice" type="radio" value="0" checked="checked" />
+                No</td>
             </tr>
             <tr  bgcolor="#FFFFFF">
               <td><div>Minimum markup:</div></td>
@@ -98,8 +100,7 @@ if(!isset($_SESSION['busyessname'])){
             </tr>
              <tr  bgcolor="#FFFFFF">
               <td><div>Auction deadline:</div></td>
-              <td><input name="overdate" type="date" id="overtime" />
-                <input name="overtime" type="time" id="overtime" /><span>*Format: 01/01/2022</span></td>
+              <td><input name="overtime" type="text" id="overtime" /><span>*Format: 2020-01-01</span></td>
             </tr>
             <tr  bgcolor="#FFFFFF">
               <td><div>Product picture:</div></td>
@@ -111,7 +112,7 @@ if(!isset($_SESSION['busyessname'])){
             </tr>
             
              <tr  bgcolor="#FFFFFF">
-              <td><div>On or off shelves:</div></td>
+              <td><div>On and off shelves:</div></td>
               <td><input name="zt" type="radio" value="1" checked="checked"/>
                 On
                 <input name="zt" type="radio" value="0" <?php if($row['zt']==0){echo "checked";}?> />
