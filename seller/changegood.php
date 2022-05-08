@@ -58,8 +58,10 @@ if(!isset($_GET['id'])){
             </tr>
               <tr  bgcolor="#FFFFFF">
               <td><div>Is it a buy-in price:</div></td>
-              <td><input name="oneprice" type="text" id="oneprice" value="<?php echo $row['oneprice'];?>" />
-                 </td>
+              <td><input name="oneprice" type="radio" value="1" <?php if($row['oneprice']==1){ echo "checked";} ?> />
+                Yes
+                <input name="oneprice" type="radio" value="0" <?php if($row['oneprice']==0){ echo "checked";} ?> />
+                No</td>
             </tr>
             <tr  bgcolor="#FFFFFF">
               <td><div>Minimum markup:</div></td>

@@ -1,22 +1,22 @@
-<?php session_start();  //Set the cache
-	ini_set('error_reporting', 'E_ALL ^ E_NOTICE');//Shield non-critical errors
-	header("Content-type: text/html; charset=utf-8"); //Coding web pages
+<?php session_start();  //设置缓存
+	ini_set('error_reporting', 'E_ALL ^ E_NOTICE');//屏蔽非关键性错误
+	header("Content-type: text/html; charset=utf-8"); //设置网页编码
   include("../conn.php");
  
-	if(isset($_POST['ok'])){ //Determines whether to submit data
+	if(isset($_POST['ok'])){ //判断是否提交数据
 		  $username=$_POST['yhm'];
 		  $password=md5($_POST['mm']);
 		  $rmm=$_POST['rmm'];
  
 	 
- 	  $sql="INSERT INTO tb_business (`username`,`password`,`time`)  VALUES('$username','$password',now())";//SQL select statement
+ 	  $sql="INSERT INTO tb_business (`username`,`password`,`time`)  VALUES('$username','$password',now())";//sql选择语句
  
 		$result = mysqli_query($link,$sql); 
-   if($result==true)//Determine whether the login was successful
+   if($result==true)//判断登陆是否成功
       {
-       echo "<script>alert('registration success');window.location.href='res.php'</script>";
+       echo "<script>alert('注册成功');window.location.href='res.php'</script>";
       }else{
-       echo "<script>alert('registration failed');window.location.href='res.php'</script>";
+       echo "<script>alert('注册失败');window.location.href='res.php'</script>";
 		  }
 		}
 		
@@ -25,7 +25,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Registration</title>
+<title>登录</title>
 <link href="css/login.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 function ck(f){
@@ -65,22 +65,22 @@ function ck(f){
   <div class="butbox">
 
     <form method="post"  action="res.php" onsubmit="return ck(this)">
-      <h3 class="saletips">Seller registration<a href="index.php">Log in</a></h3>
+      <h3 class="saletips">商家注册<a href="index.php">登陆</a></h3>
    
       <dl>
-        <dt>Username：</dt>
+        <dt>用户名：</dt>
         <dd>
           <input name="yhm" type="text" id="yhm" size="20"/>
         </dd>
       </dl>
       <dl>
-        <dt>Password：</dt>
+        <dt>密　码：</dt>
         <dd>
           <input name="mm" type="password" id="mm" />
         </dd>
       </dl>
       <dl>
-        <dt>Repeat password：</dt>
+        <dt>重复密码：</dt>
         <dd>
           <input name="rmm" type="password" id="rmm" />
         </dd>
@@ -89,7 +89,7 @@ function ck(f){
       <dl>
         <dt>&nbsp;</dt>
         <dd>
-          <input name="ok" type="submit" class="inputa"   value="registered" />
+          <input name="ok" type="submit" class="inputa"   value="注册" />
         </dd>
       </dl>
     </form>

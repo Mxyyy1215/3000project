@@ -14,12 +14,11 @@ if(!isset($_POST['ok'])){
 	$oneprice=$_POST['oneprice'];
 	$lowprice=$_POST['lowprice'];
 	$overtime=$_POST['overtime'];
-	$overdate=$_POST['overdate'];
- $overtime=$overdate.' '.$overtime;
+ 
  
  
 	$introduction=$_POST['introduction'];
-	$recommend='1';
+	$recommend=$_POST['recommend'];
 	$zt=$_POST['zt'];
  
 	$time=date("YmdHis");
@@ -57,7 +56,8 @@ if(!isset($_POST['ok'])){
  
 		
 		 
-          $sql="insert into tb_study (EAname,typeid,jianjie,brand,price,oneprice,lowprice,overtime,overdate,introduction,photo,recommend,user,zt) values('$EAname','$typeid','$jianjie','$brand','$price','$oneprice','$lowprice','$overtime','$overdate','$introduction','$photo','$recommend','$_SESSION[busyessname]','4')";
+         $sql="insert into tb_study (EAname,typeid,jianjie,brand,price,oneprice,lowprice,overtime,introduction,photo,recommend,user,zt) values('$EAname','$typeid','$jianjie','$brand','$price','$oneprice','$lowprice','$overtime','$introduction','$photo','$recommend','$_SESSION[busyessname]','$zt')";
+ 
  
 $rs2=mysqli_query($link,$sql);
 if($rs2==true){

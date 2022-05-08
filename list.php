@@ -6,7 +6,7 @@ include("conn.php");
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Art auction management</title>
+<title>GU2</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 
 </head>
@@ -20,27 +20,17 @@ include("conn.php");
  
 	?>
   
-    <a href='seller/index.php'>Seller Login</a>
-   <a href='seller/res.php'>Seller Registration</a>
+    <a href='seller/index.php'>Merchants landing</a>
+   <a href='seller/res.php'>Business registration</a>
     </div>    </div>
 <div class="header">
   <div class="headmain">
    
     <dl>
       <dt><img src="images/logo.png"></dt>
-      <dd><div class="search">
-         <form action="search.php" method="post">
-            <input type="text" name="search" placeholder="Search">
-            <button type="submit">Search</button>
-              </form>
-        </div> </dd>
+      <dd> <a  class="cur" href="index.php">Home page</a> <a href="list.php">Commodity information</a> <a href="note.php">News</a>  <a href="login.php">User login</a> <a href="res.php">User registration</a><a href="help.php">Help</a> </dd>
     </dl>
   </div>
-</div>
-<div class="navbox">
-<div class="nav">
-<a  class="cur" href="index.php">Home page</a> <a href="list.php">Commodity information</a> <a href="note.php">News</a>  <a href="login.php">User login</a> <a href="res.php">User registration</a><a href="help.php">Help</a>
-</div>
 </div>
 <div class="main">
 <div class="kecheng">
@@ -49,9 +39,9 @@ include("conn.php");
     <ul>
     	 <?php
 	
-	  $sql="select * from tb_type order by typeid asc   "; //
-	$rs=mysqli_query($link,$sql); //
-	while($row=mysqli_fetch_array($rs)){ //
+	  $sql="select * from tb_type order by typeid asc   "; //查询数据库内容
+	$rs=mysqli_query($link,$sql); //执行sql
+	while($row=mysqli_fetch_array($rs)){ //遍历结果
 		?>
       <li>
  <a href="list.php?typeid=<?php echo $row['typeid'];?>"> <?php echo $row['typename'];?></a> 
@@ -73,11 +63,11 @@ include("conn.php");
    <div class="hotkecheng">
     <ul>
       <?php
-	$typeid=empty($_GET['typeid'])?'':$_GET['typeid']; //
-	  $sql="select * from tb_study   where typeid like '%$typeid%'    order by eaid desc  "; //
-	$rs=mysqli_query($link,$sql); // 
+	$typeid=empty($_GET['typeid'])?'':$_GET['typeid']; //通过url判断是否获取分类
+	  $sql="select * from tb_study   where typeid like '%$typeid%' and zt=1  order by eaid desc  "; //查询10条数据库内容
+	$rs=mysqli_query($link,$sql); // 执行sql
 	
-	$num=mysqli_num_rows($rs); //
+	$num=mysqli_num_rows($rs); //统计查询多少数据
 	while($row=mysqli_fetch_array($rs)){
 		?>
       <li>
